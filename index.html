@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/static/third_party/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css">
+    <script src="/static/third_party/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js"></script>
+    <script src="/static/third_party/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="/static/css/computerIndex.css">
+    <link rel="stylesheet" href="/static/css/mobilephoneIndex.css">
+    <link rel="stylesheet" href="/static/css/navpage.css">
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+    <link rel="stylesheet" href="/static/css/weather.css">
+    <title>东方既白-DawnStar.top</title>
+
+
+</head>
+
+<body>
+    <div id="all-continer">
+        <!-- 0--------------------顶部 --------------------->
+        <div id="all-top-div">
+            <div class="top-div">
+                dawnstar.top
+                <span id="todaytime">
+                    <!------------------ 日期 ------------------------->
+                    <script>
+                        var todayMonth = new Date().getMonth();
+                        document.write(todayMonth + 1);
+                        var todayDate = new Date().getDate();
+                        // var todayDate = new Date(new Date().getTime()).toISOString().slice(0, 10);
+                        // var todayDate = new Date(new Date().getTime() + (parseInt(new Date().getTimezoneOffset() / 60) + 8) * 3600 * 1000).toISOString().slice(0, 10);
+                        document.write("-" + todayDate);
+                        var str = ' 周' + '日一二三四五六'.charAt(new Date().getDay());
+                        // var a = new Array("Sun", "Mon", "Tues", "Wednes", "Thurs", "Fri", "Satur");
+                        // var week = new Date().getDay();
+                        // var str = " " + a[week] + "day";
+                        document.write(str);
+                    </script>
+                </span>
+            </div>
+        </div>
+
+
+        <!-- ------------------------导航栏 ---------------------------->
+        <div class="container mt-3" id="low-div">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#home">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#menu3">导航</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#menu1">应用</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#menu2">知识</a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#menu4">天气</a>
+                </li> -->
+
+            </ul>
+
+            <!--------------------- 内容 --------------------------->
+            <div class="tab-content">
+                <!-- ----------------------首页-时间--------------------->
+                <div id="home" class="menu container tab-pane active">
+                    <div class="tq"><iframe scrolling="no" src="https://tianqiapi.com/api.php?style=ta&skin=orange"
+                            frameborder="0" width="400" height="24" allowtransparency="true"></iframe></div>
+                    <!-- <div class="weather">
+                        <iframe width="200" scrolling="no" height="65" frameborder="0" allowtransparency="true"
+                            src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=1">
+                        </iframe>
+                    </div> -->
+
+                    <div class="img">
+                        <div class="clock">
+                            <p id="1">0</p>
+                            <p id="2">0</p>
+                            <p id="3">:</p>
+                            <p id="4">0</p>
+                            <p id="5">0</p>
+                            <p id="6">:</p>
+                            <p id="7">0</p>
+                            <p id="8">0</p>
+                        </div>
+                    </div>
+                    <!-- ---------------------首页-搜索栏 ----------------->
+                    <div class="midbox">
+                        <form action="http://www.google.com/search" method="get" target="_blank">
+                            <input type="search" name="q" autofocus="autofocus" placeholder="Google searching..."
+                                id="google-seaid">
+                            <input type=submit value="" id="google-subid">
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="midbox">
+                        <form action="http://www.baidu.com/s" method="get" target="_blank">
+                            <input type="search" name="wd" id="baidu-seaid" placeholder="Baidu    searching..."
+                                autocomplete="off">
+                            <input type="submit" id="baidu-subid" value="">
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="chatbox midbox">
+                        <form action="https://chat.openai.com/" target="_blank">
+                            <input type="search" id="bot-seaid" placeholder="点击🗨️进入ChatGPT👉" autocomplete="off"
+                                disabled>
+                            <input type="submit" id="bot-subid" value="">
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="chatbox midbox">
+                        <form action="http://124.221.89.196/" target="_blank">
+                            <input type="search" id="bot-seaid" placeholder="点击🗨️进入我的博客👉" autocomplete="off" disabled>
+                            <input type="submit" id="bot-subid" value="">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- -----------------导航页--------------------- -->
+
+                <div id="menu3" class="menu container tab-pane fade">
+
+                    <div class="container-page">
+                        <ul>
+                            <li><a href="https://www.bilibili.com/" target="_blank"><img
+                                        src="/static/images/navsvg/BiliBili.svg" alt=""></a>
+                            </li>
+                            <li><a href="https://zhihu.com/" target="_blank"><img src="/static/images/navsvg/Zhihu.svg"
+                                        alt=""></a>
+                            </li>
+                            <li><a href="https://www.youtube.com/" target="_blank"><img
+                                        src="/static/images/navsvg/Youtube.svg" alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+
+                    </div>
+
+                </div>
+
+                <!-- -----------------应用页--------------------- -->
+                <div id="menu1" class="menu container tab-pane fade">
+                    <details>
+                        <summary>
+                            <span class="tree-item">1-小游戏</span>
+                        </summary>
+                        <details>
+                            <summary>
+                                <a href="static/page/snake/snake.html" target="_blank">贪吃蛇</a>
+                            </summary>
+                        </details>
+                        <details>
+                            <summary>
+                                <a href="static/page/sandbox/sandbox.html" target="_blank">井字棋</a>
+                            </summary>
+                        </details>
+                        <details>
+                            <summary>
+                                <a href="static/page/KOF/templates/index.html" target="_blank">拳皇</a>
+                                玩家1：wad+空格 玩家2：↑←→+回车
+                            </summary>
+                        </details>
+                    </details>
+                    <details>
+                        <summary>
+                            <span class="tree-item">2-应用</span>
+                        </summary>
+                        <details>
+                            <summary>
+                                <a href="/static/page/weather/weather.html" target="_blank">天气</a>
+                            </summary>
+                        </details>
+                    </details>
+                </div>
+                <!-- ----------------------知识页-------------------- -->
+                <!-- <div id="menu2" class="menu container tab-pane fade">
+                    <details>
+                        <summary>
+                            <span class="tree-item">1-Java</span>
+                        </summary>
+                        <details>
+                            <summary>
+                                <a href="https://www.notion.so/dawnstarr/Java-804076ef20e24ab2a0fec25c12ce594c"
+                                    target="_blank">1-Java语法</a>
+                            </summary>
+                        </details>
+                    </details>
+                    <details>
+                        <summary>
+                            <span class="tree-item">2-前端</span>
+                        </summary>
+                        <details>
+                            <summary>
+                                <a href="https://developer.mozilla.org/zh-CN/" target="_blank">1-MDN官网</a>
+                            </summary>
+                        </details>
+                        <details>
+                            <summary>
+                                <a href="https://www.notion.so/dawnstarr/JavaScript-5eb71b5642fe4887b22c85fc78b461ee"
+                                    target="_blank">2-JavaScript语法</a>
+                            </summary>
+                        </details>
+                    </details>
+                    <details>
+                        <summary>
+                            <span class="tree-item">3-Linux</span>
+                        </summary>
+                        <details>
+                            <summary>
+                                <span class="tree-item">文件夹1</span>
+                            </summary>
+                        </details>
+                        <details>
+                            <summary>
+                                <span class="tree-item">文件夹2</span>
+                            </summary>
+                            <details>
+                                <summary>
+                                    <span class="tree-item">文件2-1</span>
+                                </summary>
+                            </details>
+                        </details>
+                    </details>
+                </div> -->
+                <!-- <div id="menu4" class="menu container tab-pane fade">
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer id="footer" class="footer">
+        <p>&copy;2023 <a href="http://dawnstar.top" target="_blank" rel="noopener noreferrer"
+                style="text-decoration: none;">dawnstar.top</a>, All
+            Rights Reserved. </p>
+    </footer>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script type="module" src="static/js/index.js"></script>
+    <script type="module" src="static/js/click.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/static/js/sakura-less.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+</body>
+
+</html>

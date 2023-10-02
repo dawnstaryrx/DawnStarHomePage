@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>贪吃蛇-Eat More Snake</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scale: 85%;
+        }
+
+        html,
+        body {
+            background: aliceblue;
+        }
+
+        #scene {
+            position: relative;
+            margin: 50px auto;
+            background-color: rgba(139, 205, 106, 0.475);
+            width: 1000px;
+            height: 500px;
+            border: solid 1px #333;
+            box-shadow: #000 0 0 3px;
+        }
+
+        #head {
+            width: 50px;
+            height: 50px;
+            border-radius: 30px;
+            /* background: orangered; */
+            position: absolute;
+            left: 150px;
+            top: 0;
+        }
+
+        p,
+        .food {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background: #666;
+            border-radius: 50%;
+            background-color: aquamarine;
+            border: solid 1px white;
+        }
+
+        #pause {
+            position: absolute;
+            width: 98px;
+            height: 62px;
+            background-color: rgba(86, 167, 167, 0.789);
+            color: white;
+            margin-left: 1300px;
+            margin-top: 34px;
+            font-size: 22px;
+        }
+
+        #pause:hover {
+            background-color: rgba(77, 118, 118, 0.6);
+        }
+
+        #score {
+            position: absolute;
+            width: 128px;
+            height: 62px;
+            background-color: rgba(86, 167, 167, 0.789);
+            color: white;
+            margin-left: 1300px;
+            margin-top: 125px;
+            font-size: 22px;
+            text-align: center;
+            line-height: 62px;
+        }
+
+        p:nth-of-type(1) {
+            left: 0;
+        }
+
+        p:nth-of-type(2) {
+            left: 50px;
+        }
+
+        p:nth-of-type(3) {
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="pause">暂停</button>
+    <h1 id="score">Score：0</h1>
+    <!-- 游戏舞台 -->
+    <div id="scene">
+        <!-- 蛇头 -->
+        <div id="head" style="left: 150px; top: 0">
+            <img src="./img.png" alt="" width="50px" height="50px" />
+        </div>
+        <!-- 蛇身 -->
+        <p style="left: 100px; top: 0"></p>
+        <p style="left: 50px; top: 0"></p>
+        <p style="left: 0px; top: 0"></p>
+    </div>
+
+    <script>
+        window.onload = function () {
+            // 封装获取DOM对象的函数
+            function $(selector) {
+                return document.querySelectorAll(selector);
+            }
+
+            // 闭包+自执行函数，实现贪吃蛇独立开发
+            !(function () {
+                // 声明变量，记录贪吃蛇数据
+                var speedX = 50; // 水平移动速度
+                var speedY = 0; // 垂直移动速度
+                var score = 0; // 积分（吃掉一个食物，增加1分）
+
+                var pauseX = 0; // 暂停时记录的X速度
+                var pauseY = 0; // 暂停时记录的Y速度
+                var pause = false; // 当前程序正在执行
+                var pauseBtn = $("#pause")[0]; // 暂停按钮
+
+                // 获取需要的标签
+                var _scene = $("#scene")[0];
+                var _head = $("#head")[0]; // 蛇头
+                var _ps = $("p"); // 蛇身NodeList
+                _ps = Array.from(_ps); // 将类数组-类型转换-> 数组
+
+                var food; // 随机的食物
+
+                // 蛇-移动计时器
+                var snakeInterval;
+                // 食物-计时器
+                var foodInterval;
+
+                // 贪吃蛇移动的函数
+                function move() {
+                    // 从尾部向前移动
+                    for (var i = _ps.length - 1; i > 0; i--) {
+                        // 让每个p元素，移动到前一个p元素的位置
+                        _ps[i].style.left = _ps[i - 1].style.left;
+                        _ps[i].style.top = _ps[i - 1].style.top;
+                    }
+
+                    // 第一个p元素跟随蛇头移动
+                    _ps[0].style.left = _head.style.left;
+                    _ps[0].style.top = _head.style.top;
+
+                    // 蛇头移动
+                    _head.style.left = _head.offsetLeft + speedX + "px";
+                    _head.style.top = _head.offsetTop + speedY + "px";
+
+                    // 判断是否吃掉食物
+                    eat();
+                    // 判断边界
+                    borderJudge();
+                }
+
+                // 控制用户按键的操作
+                document.onkeydown = function (e) {
+                    // 获取事件对象
+                    var e = e || window.event;
+                    // e.keyCode 获取用户按键对应的ascii码
+                    // console.log("用户按下了什么键？", e.keyCode)
+                    switch (e.keyCode) {
+                        case 37: // 左
+                            speedX = -50;
+                            speedY = 0;
+                            break;
+                        case 38: // 上
+                            speedY = -50;
+                            speedX = 0;
+                            break;
+                        case 39: // 右
+                            speedX = 50;
+                            speedY = 0;
+                            break;
+                        case 40: // 下
+                            speedY = 50;
+                            speedX = 0;
+                            break;
+                    }
+                };
+
+                // 吃掉食物的函数
+                function eat() {
+                    if (food) {
+                        // 当蛇头的位置和食物的位置重合：吃掉
+                        if (
+                            _head.style.left === food.style.left &&
+                            _head.style.top === food.style.top
+                        ) {
+                            var _p = document.createElement("p");
+                            _p.style.backgroundColor = food.style.backgroundColor;
+
+                            // 将食物置空:表示食物被吃掉了
+                            _scene.removeChild(food);
+                            food = null;
+
+                            // 将食物追加到贪吃蛇数组中
+                            _p.style.left = _ps[_ps.length - 1].style.left;
+                            _p.style.top = _ps[_ps.length - 1].style.top;
+                            _ps.push(_p);
+                            _scene.appendChild(_p);
+
+                            // 积分刷新
+                            var h1 = document.getElementsByTagName("h1")
+                            score += 10;
+                            h1[0].innerHTML = "Score:" + score;
+
+                        }
+                    }
+                }
+
+                // 随机产生食物的函数
+                function randomFood() {
+                    // 随机x/y坐标
+                    var x = 50 * Math.floor(Math.random() * 20); // 1000
+                    var y = 50 * Math.floor(Math.random() * 10); // 500
+
+                    // 如果随机的坐标出现在蛇身上，需要重新执行函数重新生成坐标
+                    for (var i = 0; i < _ps.length; i++) {
+                        if (_ps[i].offsetLeft === x && _ps[i].offsetTop === y) {
+                            // 重新生成坐标并创建食物：递归
+                            return randomFood();
+                        }
+                    }
+
+                    // 创建食物 div 标签
+                    food = document.createElement("foodss");
+                    food.className = "food";
+                    food.style.backgroundColor =
+                        "#" + Math.random().toString(16).substr(2, 6);
+
+                    food.style.left = x + "px";
+                    food.style.top = y + "px";
+
+                    // 添加到游戏场景中
+                    _scene.appendChild(food);
+                }
+
+                // 边界判断
+                function borderJudge() {
+                    // 判断蛇头是否出了场景
+                    if (
+                        _head.offsetLeft < 0 ||
+                        _head.offsetLeft > 950 ||
+                        _head.offsetTop < 0 ||
+                        _head.offsetTop > 450
+                    ) {
+                        // 停止贪吃蛇运动和随机食物
+                        clearInterval(snakeInterval);
+                        clearInterval(foodInterval);
+                        // 提示消息
+                        alert("你已经越界了，游戏结束");
+                        location.reload();
+                    }
+
+                    // 蛇头是否进入自己身体
+                    for (var i = 0; i < _ps.length; i++) {
+                        if (
+                            _ps[i].style.left === _head.style.left &&
+                            _ps[i].style.top === _head.style.top
+                        ) {
+                            // 停止贪吃蛇运动和随机食物
+                            clearInterval(snakeInterval);
+                            clearInterval(foodInterval);
+                            // 提示消息
+                            alert("你吃掉自己的身体了，游戏结束");
+                            location.reload();
+                        }
+                    }
+                }
+
+                // 暂停 和 恢复
+                pauseBtn.onclick = function () {
+                    if (!pause) {
+                        // 游戏正在执行中
+                        pause = true;
+                        pauseX = speedX;
+                        pauseY = speedY;
+                        speedX = speedY = 0; // 暂停
+                        alert("主人，我已遵循指令对游戏进行了暂停");
+                        clearInterval(snakeInterval); // 清空计时器
+                        clearInterval(foodInterval); // 清空计时器
+                    } else {
+                        pause = false;
+                        speedX = pauseX;
+                        speedY = pauseY;
+                        play(); // 重新启动恢复游戏
+                    }
+                };
+
+                /**游戏开始的函数 */
+                function play() {
+                    // 移动贪吃蛇
+                    snakeInterval = setInterval(function () {
+                        // 每隔1秒，移动一次
+                        move();
+                    }, 200);
+
+                    // 随机产生食物
+                    foodInterval = setInterval(function () {
+                        if (!food) {
+                            // 如果没有食物出现，创建一个食物
+                            randomFood();
+                        }
+                    }, 500);
+                }
+
+                // 开始游戏
+                play();
+            })();
+        };
+    </script>
+</body>
+
+</html>

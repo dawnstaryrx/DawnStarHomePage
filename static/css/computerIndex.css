@@ -1,0 +1,189 @@
+@media(min-width: 768px) {
+    #all-div {
+        min-height: 100%;
+    }
+
+    #low-div {}
+
+    #all-top-div {
+        background-color: #eef7f2;
+    }
+
+
+
+    .top-div {
+        background-color: #eef7f2;
+        height: 60px;
+        font-size: 30px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        margin-left: 5%;
+        line-height: 60px;
+    }
+
+    .menu {
+        /* background-color: #f7f9f8; */
+    }
+
+    details {
+        padding-left: 10px;
+        font-size: 20px
+    }
+
+
+    #todaytime {
+        text-align: right;
+        width: 50%;
+        float: right;
+        font-size: 10;
+        font-size: 18px;
+    }
+
+    #footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: #969696;
+        text-align: center;
+    }
+
+    .img {
+        /* width: 1200px; */
+        height: 100px;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .img .clock {
+        width: 60px;
+        height: 50px;
+        position: absolute;
+        top: 50%;
+        left: 43%;
+        margin-top: -50px;
+        margin-left: -30px;
+    }
+
+    .clock {
+        display: flex;
+    }
+
+    .clock p {
+        /*width: 1000px;*/
+        font-size: 50px;
+        color: #fff;
+        text-align: center;
+        /* 设置字体 */
+        font-family: "Kanit";
+        font-weight: 900;
+        /* 文字阴影 实现3D效果 */
+        text-shadow: 0 1px 0 #deafaf,
+            0 2px 0 #bda8a8,
+            0 3px 0 #d8a1a1,
+            0 4px 0 #d59999,
+            0 5px 0 #d29292,
+            0 6px 0 #cf8b8b,
+            0 7px 0 #cc8484,
+            0 8px 0 #c97d7d,
+            0 0 5px rgba(19, 19, 19, 0.05),
+            0 -1px 3px rgba(179, 197, 245, 0.2),
+            0 9px 9px rgba(156, 170, 243, 0.3),
+            0 12px 12px rgba(131, 123, 238, 0.3),
+            0 15px 15px rgba(129, 123, 245, 0.3);
+    }
+
+    .midbox {
+        float: left;
+        display: inline-block;
+        background: transparent;
+        width: 100%;
+        height: 40px;
+    }
+
+    .midbox form {
+        width: 600px;
+        height: 40px;
+        margin: 0 auto;
+    }
+
+    /* .chatbox {
+        font-size: 20px;
+    }
+
+    .chatbox form {} */
+
+    #baidu-seaid {
+        float: left;
+        width: 550px;
+        height: 40px;
+        outline: none;
+        border-radius: 10%;
+        font-size: 18px;
+        text-indent: 1em;
+        background: rgba(183, 241, 200, 0.2);
+    }
+
+    #baidu-subid {
+        float: left;
+        width: 50px;
+        height: 36px;
+        outline: none;
+        background: transparent;
+        border: 0;
+        font-size: 18px;
+        background: url("/static/images/search.svg") no-repeat center;
+        background-position-y: 2px;
+        cursor: pointer;
+
+    }
+
+    #google-seaid {
+        float: left;
+        width: 550px;
+        height: 40px;
+        outline: none;
+        border-radius: 10%;
+        font-size: 18px;
+        text-indent: 1em;
+        background: rgba(183, 241, 200, 0.2);
+    }
+
+    #google-subid {
+        float: left;
+        width: 50px;
+        height: 36px;
+        outline: none;
+        background: transparent;
+        border: 0;
+        font-size: 18px;
+        background: url("/static/images/search.svg") no-repeat center;
+        background-position-y: 2px;
+        cursor: pointer;
+
+    }
+
+    #bot-seaid {
+        float: left;
+        width: 550px;
+        height: 40px;
+        outline: none;
+        border-radius: 10%;
+        font-size: 18px;
+        text-indent: 1em;
+        background: rgba(183, 241, 200, 0.2);
+    }
+
+    #bot-subid {
+        float: left;
+        width: 50px;
+        height: 36px;
+        outline: none;
+        background: transparent;
+        border: 0;
+        font-size: 18px;
+        background: url("/static/images/chatbot.svg") no-repeat center;
+        background-position-y: 2px;
+        cursor: pointer;
+
+    }
+}
